@@ -18,7 +18,7 @@ import org.apache.avro.ipc.HttpTransceiver;
 import org.apache.avro.specific.SpecificRequestor;
 
 public class AvroApi implements GamesmanApi {
-	public static final String GAMESMAN_JAVA = "http://localhost:8042/";
+	public static final String GAMESMAN_JAVA = "http://nyc.cs.berkeley.edu:8042/";
 
 	private GamesmanProvider connect() throws RequestException {
 		try {
