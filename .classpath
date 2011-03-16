@@ -30,9 +30,11 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Gamesman-API/avro-1.4.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="avro-tools-1.4.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-core-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-guice-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-server-1.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jetty.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/servlet.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

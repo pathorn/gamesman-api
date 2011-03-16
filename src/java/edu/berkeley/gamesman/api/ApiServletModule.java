@@ -1,5 +1,7 @@
 package edu.berkeley.gamesman.api;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
@@ -20,6 +22,7 @@ public class ApiServletModule extends ServletModule {
 
         bind(GamesmanService.class);
         bind(AuthenticationService.class);
+        bind(ObjectMapper.class);
 
         serve(BASE_URI + "*").with(GuiceContainer.class);
     }

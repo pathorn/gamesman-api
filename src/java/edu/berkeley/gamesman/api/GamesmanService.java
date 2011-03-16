@@ -1,7 +1,9 @@
 package edu.berkeley.gamesman.api;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -40,6 +42,28 @@ public class GamesmanService {
     @Inject
     public GamesmanService(GamesmanApi api) {
         this.api = api;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("initial-position-value")
+    public String getInitialPositionValue(@Context UriInfo info) {
+    	GameVariant gameVariant;
+    	try {
+			gameVariant = getGameVariant();
+		} catch (VersionNotFoundException e) {
+			throw new RuntimeException(e);
+			//ERROR(e);
+		} catch (UnsupportedVersionException e) {
+			throw new RuntimeException(e);
+			//ERROR(e);
+		}
+        try {
+			return mapper.writeValueAsString(
+				api.getInitialPositionValue(gameVariant));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
     }
 
     @GET
@@ -90,9 +114,47 @@ public class GamesmanService {
 		}
     }
 
-    @SuppressWarnings("unchecked")
 	protected Map<String, String> getVariant() {
-        return (Map<String,String>)(Object)(getGameSegment().getMatrixParameters());
+    	final Map<String, List<String>> multimap = getGameSegment().getMatrixParameters();
+        return new Map<String, String>() {
+			public int size() {
+				return multimap.size();
+			}
+			public boolean isEmpty() {
+				return multimap.isEmpty();
+			}
+			public boolean containsKey(Object key) {
+				return multimap.containsKey(key);
+			}
+			public boolean containsValue(Object value) {
+				throw new UnsupportedOperationException("containsValue");
+			}
+			public String get(Object key) {
+				return multimap.get(key).get(0);
+			}
+			public String put(String key, String value) {
+				throw new UnsupportedOperationException("put");
+			}
+			public String remove(Object key) {
+				throw new UnsupportedOperationException("remove");
+			}
+			public void putAll(Map<? extends String, ? extends String> t) {
+				throw new UnsupportedOperationException("putAll");
+			}
+			public void clear() {
+				throw new UnsupportedOperationException("clear");
+			}
+			public Set<String> keySet() {
+				// TODO Auto-generated method stub
+				return multimap.keySet();
+			}
+			public Collection<String> values() {
+				throw new UnsupportedOperationException("values");
+			}
+			public Set<java.util.Map.Entry<String, String>> entrySet() {
+				throw new UnsupportedOperationException("entrySet");
+			}
+        };
     }
 
     protected String getGame() {

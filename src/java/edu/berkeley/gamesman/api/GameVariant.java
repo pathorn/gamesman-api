@@ -49,8 +49,8 @@ public class GameVariant {
 		if (version != 0) {
 			throw new UnsupportedVersionException(game, version);
 		}
-		for (Map.Entry<String,String> entry : variant.entrySet()) {
-			varMap.put(entry.getKey(), entry.getValue());
+		for (String key : variant.keySet()) {
+			varMap.put(key, variant.get(key));
 		}
 		return new GameVariant(game, varMap);
 	}
