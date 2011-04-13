@@ -11,7 +11,7 @@ public class MockGamesmanApi implements GamesmanApi {
 	getNextPositionValues(GameVariant var, String board)
 	throws RequestException {
 		Map<String, ApiPositionValue> ret = new TreeMap<String, ApiPositionValue>();
-		ret.put("null", new ApiPositionValue("test", "awesome"));
+		ret.put("null", new ApiMoveValue("foo", "test", "awesome", null));
 		return ret;
 	}
 
@@ -20,7 +20,7 @@ public class MockGamesmanApi implements GamesmanApi {
 	getPositionValues(GameVariant var, List<String> boards)
 	throws RequestException {
 		Map<String, ApiPositionValue> ret = new TreeMap<String, ApiPositionValue>();
-		ret.put("test", new ApiPositionValue("test", "awesome"));
+		ret.put("test", new ApiPositionValue("test", "awesome", null));
 		return ret;
 	}
 
@@ -28,6 +28,6 @@ public class MockGamesmanApi implements GamesmanApi {
 	public ApiPositionValue
 	getInitialPositionValue(GameVariant var)
 	throws RequestException {
-		return new ApiPositionValue("test", "awesome");
+		return new ApiPositionValue("test", "awesome", null);
 	}
 }

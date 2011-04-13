@@ -51,9 +51,11 @@ public class AvroApi implements GamesmanApi {
 					req.getNextPositionValues(
 							var.getGame(), var.getVariant(),
 							board, getDefaultFields()).entrySet()) {
-				ApiPositionValue pv = new ApiPositionValue(
+				ApiPositionValue pv = new ApiMoveValue(
+						board,
 						ent.getValue().position.toString(),
-						ent.getValue().value.toString());
+						ent.getValue().value.toString(),
+						ent.getValue().remoteness);
 				resultMap.put(ent.getKey().toString(), pv);
 			}
 			return resultMap;
@@ -73,7 +75,8 @@ public class AvroApi implements GamesmanApi {
 					getDefaultFields());
 			ApiPositionValue pv = new ApiPositionValue(
 					val.position.toString(),
-					val.value.toString());
+					val.value.toString(),
+					val.remoteness);
 			return pv;
 		} catch (AvroRemoteException e) {
 			throw new RequestException("Failed to call RPC getNextPositionValues", e);
@@ -94,7 +97,8 @@ public class AvroApi implements GamesmanApi {
 							boardsCopy, getDefaultFields()).entrySet()) {
 				ApiPositionValue pv = new ApiPositionValue(
 						ent.getValue().position.toString(),
-						ent.getValue().value.toString());
+						ent.getValue().value.toString(),
+						ent.getValue().remoteness);
 				resultMap.put(ent.getKey().toString(), pv);
 			}
 			return resultMap;

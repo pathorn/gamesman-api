@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -38,6 +39,9 @@ public class GamesmanService {
     private ObjectMapper mapper;
 
     private final GamesmanApi api;
+    
+    @Context
+    private HttpServletResponse resp;
 
     @Inject
     public GamesmanService(GamesmanApi api) {
@@ -59,6 +63,7 @@ public class GamesmanService {
 			//ERROR(e);
 		}
         try {
+        	resp.setHeader("Access-Control-Allow-Origin", "*");
 			return mapper.writeValueAsString(
 				api.getInitialPositionValue(gameVariant));
 		} catch (Exception e) {
@@ -83,6 +88,7 @@ public class GamesmanService {
         MultivaluedMap<String, String> boardParameters =
             getMatrixParametersForSegment("position-values", info);
         try {
+        	resp.setHeader("Access-Control-Allow-Origin", "*");
 			return mapper.writeValueAsString(
 				api.getPositionValues(gameVariant, boardParameters.get("position")));
 		} catch (Exception e) {
@@ -107,6 +113,7 @@ public class GamesmanService {
         MultivaluedMap<String, String> boardParameters =
             getMatrixParametersForSegment("next-position-values", info);
         try {
+        	resp.setHeader("Access-Control-Allow-Origin", "*");
 			return mapper.writeValueAsString(
 				api.getNextPositionValues(gameVariant, boardParameters.getFirst("position")));
 		} catch (Exception e) {

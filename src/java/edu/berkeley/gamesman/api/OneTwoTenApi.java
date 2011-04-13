@@ -20,10 +20,10 @@ public class OneTwoTenApi implements GamesmanApi {
 		}
 		if (value == 10) {
 		} else if (value == 9) {
-			ret.put("1", new ApiPositionValue("10", "lose"));
+			ret.put("1", new ApiMoveValue(board, "10", "lose", null));
 		} else {
-			ret.put("1", new ApiPositionValue(Integer.toString(value + 1), (value%3==0) ? "lose" : "win"));
-			ret.put("2", new ApiPositionValue(Integer.toString(value + 2), (value%3==2) ? "lose" : "win"));
+			ret.put("1", new ApiMoveValue(board, Integer.toString(value + 1), (value%3==0) ? "lose" : "win", null));
+			ret.put("2", new ApiMoveValue(board, Integer.toString(value + 2), (value%3==2) ? "lose" : "win", null));
 		}
 		return ret;
 	}
@@ -40,11 +40,11 @@ public class OneTwoTenApi implements GamesmanApi {
 			}
 			String boardStr = Integer.toString(value);
 			if (value == 10) {
-				ret.put(boardStr, new ApiPositionValue(boardStr, "lose"));
+				ret.put(boardStr, new ApiPositionValue(boardStr, "lose", null));
 			} else if (value % 3 != 1) {
-				ret.put(boardStr, new ApiPositionValue(boardStr, "win"));
+				ret.put(boardStr, new ApiPositionValue(boardStr, "win", null));
 			} else {
-				ret.put(boardStr, new ApiPositionValue(boardStr, "lose"));
+				ret.put(boardStr, new ApiPositionValue(boardStr, "lose", null));
 			}
 		}
 		return ret;
@@ -54,7 +54,7 @@ public class OneTwoTenApi implements GamesmanApi {
 	public ApiPositionValue
 	getInitialPositionValue(GameVariant var)
 	throws RequestException {
-		return new ApiPositionValue("0", "win");
+		return new ApiPositionValue("0", "win", null);
 	}
 
 }
